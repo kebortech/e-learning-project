@@ -7,7 +7,8 @@ const currentUser = JSON.parse(localStorage.getItem('learniaCurrentUser')) ||
                     JSON.parse(sessionStorage.getItem('learniaCurrentUser'));
 
 if (!currentUser) {
-    window.location.href = 'login.html';
+    console.log("[v0] No current user found, redirecting to login");
+    window.location.href = './login.html';
 }
 
 // Expected role based on page
@@ -16,19 +17,24 @@ const pageRole = window.location.pathname.includes('admin') ? 'admin' :
                  window.location.pathname.includes('student') ? 'student' : null;
 
 if (pageRole && currentUser.role !== pageRole) {
+    console.log("[v0] Role mismatch. User is", currentUser.role, "but page expects", pageRole);
     // Redirect to correct dashboard
     switch(currentUser.role) {
         case 'admin':
-            window.location.href = 'admin-dashboard.html';
+            console.log("[v0] Redirecting to admin dashboard");
+            window.location.href = './admin-dashboard.html';
             break;
         case 'instructor':
-            window.location.href = 'instructor-dashboard.html';
+            console.log("[v0] Redirecting to instructor dashboard");
+            window.location.href = './instructor-dashboard.html';
             break;
         case 'student':
-            window.location.href = 'student-dashboard.html';
+            console.log("[v0] Redirecting to student dashboard");
+            window.location.href = './student-dashboard.html';
             break;
         default:
-            window.location.href = 'login.html';
+            console.log("[v0] Unknown role, redirecting to login");
+            window.location.href = './login.html';
     }
 }
 
