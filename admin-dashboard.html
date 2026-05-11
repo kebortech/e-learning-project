@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="LearnHub - Admin Dashboard">
+    <meta name="theme-color" content="#0f172a">
+    <title>Admin Dashboard | LearnHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <span>Learn<span class="gradient-text">Hub</span></span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Main</div>
+                    <a href="#" class="sidebar-link active" data-page="overview">
+                        <i class="fas fa-th-large"></i> Overview
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="analytics">
+                        <i class="fas fa-chart-line"></i> Analytics
+                    </a>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Management</div>
+                    <a href="#" class="sidebar-link" data-page="users">
+                        <i class="fas fa-users"></i> Users
+                        <span class="badge" id="totalUsersBadge">0</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="instructors">
+                        <i class="fas fa-chalkboard-teacher"></i> Instructors
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="courses">
+                        <i class="fas fa-book"></i> Courses
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="enrollments">
+                        <i class="fas fa-user-check"></i> Enrollments
+                    </a>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Payments</div>
+                    <a href="#" class="sidebar-link" data-page="approvals">
+                        <i class="fas fa-check-circle"></i> Payment Approvals
+                        <span class="badge" id="pendingApprovalsBadge">0</span>
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="transactions">
+                        <i class="fas fa-exchange-alt"></i> Transactions
+                    </a>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Settings</div>
+                    <a href="#" class="sidebar-link" data-page="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="reports">
+                        <i class="fas fa-file-alt"></i> Reports
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">AU</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Admin User</div>
+                        <div class="user-role" id="userRole">Admin</div>
+                    </div>
+                    <button class="sidebar-link" onclick="logout()" style="padding: 0.5rem;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" id="mobileOverlay"></div>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="pageTitle">Admin Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn desktop-only">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="theme-toggle header-btn" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Dashboard Content -->
+            <div class="dashboard-content" id="dashboardContent">
+                <!-- Overview Page (Default) -->
+                <div id="overview-page">
+                    <!-- Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalUsers">0</h3>
+                                <p>Total Users</p>
+                                <span class="stat-change positive">+12% this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalStudents">0</h3>
+                                <p>Students</p>
+                                <span class="stat-change positive">+8% this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalInstructors">0</h3>
+                                <p>Instructors</p>
+                                <span class="stat-change positive">+5% this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingPayments">0</h3>
+                                <p>Pending Approvals</p>
+                                <span class="stat-change neutral">Requires action</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts & Recent Activity -->
+                    <div class="content-grid">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>User Growth</h3>
+                                <select class="action-btn">
+                                    <option>Last 7 days</option>
+                                    <option selected>Last 30 days</option>
+                                    <option>Last 90 days</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container" id="userGrowthChart">
+                                    <i class="fas fa-chart-line" style="font-size: 5rem; color: var(--text-secondary); opacity: 0.3;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Recent Activity</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="activity-list" id="activityList">
+                                    <li class="activity-item">
+                                        <div class="activity-icon blue">
+                                            <i class="fas fa-user-plus"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p>New student registered: <strong>Sarah Johnson</strong></p>
+                                            <span class="time">2 minutes ago</span>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon orange">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p>Payment pending: <strong>$89.99 - Web Development Bootcamp 2026</strong></p>
+                                            <span class="time">15 minutes ago</span>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon purple">
+                                            <i class="fas fa-chalkboard-teacher"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p>New instructor added: <strong>Ararso Mohammed</strong></p>
+                                            <span class="time">1 hour ago</span>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon green">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p>Payment approved: <strong>$94.99 - Machine Learning</strong></p>
+                                            <span class="time">2 hours ago</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pending Approvals Quick View -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Pending Payment Approvals</h3>
+                            <button class="btn btn-primary" onclick="switchPage('approvals')">View All</button>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Student</th>
+                                            <th>Course</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="quickApprovalsTable">
+                                        <tr>
+                                            <td colspan="7" style="text-align: center; color: var(--text-secondary);">
+                                                <i class="fas fa-check-circle" style="color: #10b981;"></i> No pending approvals
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Users Table -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Recent Users</h3>
+                            <button class="btn btn-primary" onclick="switchPage('users')">View All</button>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Joined</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentUsersTable">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Users Management Page -->
+                <div id="users-page" style="display: none;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>All Users</h3>
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <input type="text" class="search-input" placeholder="Search users..." id="userSearch" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--text-primary);">
+                                <button class="btn btn-primary" onclick="openAddUserModal()">
+                                    <i class="fas fa-plus"></i> Add User
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Joined</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="allUsersTable">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Instructors Page -->
+                <div id="instructors-page" style="display: none;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Instructors Management</h3>
+                            <button class="btn btn-primary" onclick="openAddInstructorModal()">
+                                <i class="fas fa-plus"></i> Add Instructor
+                            </button>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Instructor</th>
+                                            <th>Specialization</th>
+                                            <th>Courses</th>
+                                            <th>Students</th>
+                                            <th>Rating</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="instructorsTable">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Courses Management Page -->
+                <div id="courses-page" style="display: none;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Courses Management</h3>
+                            <button class="btn btn-primary" onclick="openAddCourseModal()">
+                                <i class="fas fa-plus"></i> Add Course
+                            </button>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course</th>
+                                            <th>Instructor</th>
+                                            <th>Category</th>
+                                            <th>Students</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="coursesTable">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enrollments Page -->
+                <div id="enrollments-page" style="display: none;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Course Enrollments</h3>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Student</th>
+                                            <th>Course</th>
+                                            <th>Enrolled Date</th>
+                                            <th>Progress</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="enrollmentsTable">
+                                        <tr>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                    <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.7rem;">JD</div>
+                                                    <strong>Jane Doe</strong>
+                                                </div>
+                                            </td>
+                                            <td>Complete Web Development Bootcamp 2026</td>
+                                            <td>Jan 15, 2026</td>
+                                            <td>
+                                                <div class="progress-bar-container" style="width: 100px;">
+                                                    <div class="progress-bar-fill blue" style="width: 68%;"></div>
+                                                </div>
+                                                <span style="font-size: 0.8rem;">68%</span>
+                                            </td>
+                                            <td><span class="status status-active">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Approvals Page -->
+                <div id="approvals-page" style="display: none;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Pending Payment Approvals</h3>
+                            <span class="status status-pending" id="pendingCount">0 Pending</span>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Student</th>
+                                            <th>Course(s)</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="approvalsTable">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="noApprovals" style="text-align: center; padding: 3rem; display: none;">
+                                <i class="fas fa-check-circle" style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;"></i>
+                                <h3>No Pending Approvals</h3>
+                                <p style="color: var(--text-secondary);">All payments have been processed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Page -->
+                <div id="transactions-page" style="display: none;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>All Transactions</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="action-btn active" onclick="filterTransactions('all')">All</button>
+                                <button class="action-btn" onclick="filterTransactions('approved')">Approved</button>
+                                <button class="action-btn" onclick="filterTransactions('pending')">Pending</button>
+                                <button class="action-btn danger" onclick="filterTransactions('rejected')">Rejected</button>
+                            </div>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Student</th>
+                                            <th>Course(s)</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Approved By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="transactionsTable">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Page -->
+                <div id="settings-page" style="display: none;">
+                    <div class="content-grid full-width">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Platform Settings</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="settingsForm">
+                                    <div class="form-group">
+                                        <label>Platform Name</label>
+                                        <input type="text" value="LearnHub" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Support Email</label>
+                                        <input type="email" value="support@learnia.com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Max Courses Per Student</label>
+                                        <input type="number" value="10" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Commission Rate (%)</label>
+                                        <input type="number" value="20" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Page -->
+                <div id="reports-page" style="display: none;">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalRevenue">$0</h3>
+                                <p>Total Revenue</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalTransactions">0</h3>
+                                <p>Total Transactions</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="approvedTransactions">0</h3>
+                                <p>Approved</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingTransactions">0</h3>
+                                <p>Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Add User Modal -->
+    <div class="modal-overlay" id="addUserModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Add New User</h3>
+                <button class="modal-close" onclick="closeModal('addUserModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="newFirstName" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="newLastName" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="newEmail" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="newPassword" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="newRole" required class="form-control" onchange="toggleInstructorFields()">
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div id="instructorModalFields" style="display: none;">
+                        <div class="form-group">
+                            <label>Specialization</label>
+                            <input type="text" id="newSpecialization" placeholder="e.g., Web Development, Data Science" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Professional Experience (Years)</label>
+                            <input type="number" id="newExperience" placeholder="Years of experience" min="0" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('addUserModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addNewUser()">Add User</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+    
+    <script src="data.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

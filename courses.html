@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="LearnHub - Explore our comprehensive course catalog and start your learning journey">
+    <meta name="theme-color" content="#0f172a">
+    <title>Courses | LearnHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="courses.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="bg-noise"></div>
+    <div class="bg-gradient"></div>
+    <div class="bg-orb-1"></div>
+    <div class="bg-orb-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>Learn<span class="gradient-text">Hub</span></span>
+            </a>
+            
+            <div class="nav-links desktop-only">
+                <a href="courses.html" class="active">Courses</a>
+                <a href="index.html#features">Features</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#testimonials">Reviews</a>
+                <a href="index.html#faq">FAQ</a>
+            </div>
+
+            <div class="nav-controls">
+                <button class="cart-btn" id="cartBtn" aria-label="View cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html" class="btn btn-ghost desktop-only" id="signInBtn">Sign In</a>
+                <a href="register.html" class="btn btn-primary desktop-only" id="registerBtn">Start Learning</a>
+                <div class="user-menu desktop-only" id="userMenu" style="display: none;">
+                    <button class="user-menu-btn" id="userMenuBtn">
+                        <div class="user-avatar-sm" id="navUserAvatar">U</div>
+                        <span id="navUserName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" id="dashboardLink">
+                            <i class="fas fa-th-large"></i> Dashboard
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <hr>
+                        <a href="#" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Sign Out
+                        </a>
+                    </div>
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="courses.html">Courses</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#pricing">Pricing</a>
+            <a href="index.html#testimonials">Reviews</a>
+            <a href="index.html#faq">FAQ</a>
+            <div class="mobile-menu-actions" id="mobileAuthActions">
+                <a href="login.html" class="btn btn-ghost btn-block">Sign In</a>
+                <a href="register.html" class="btn btn-primary btn-block">Start Learning</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Course Header -->
+    <section class="courses-header">
+        <div class="container">
+            <h1>Explore Our <span class="gradient-text">Courses</span></h1>
+            <p>Discover courses tailored to your career goals. Learn from industry experts.</p>
+            
+            <!-- Search and Filter Bar -->
+            <div class="course-controls glass-panel">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="courseSearch" placeholder="Search courses by name, category, or skill...">
+                </div>
+                <div class="filter-wrapper">
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="web-development">Web Development</option>
+                        <option value="data-science">Data Science & AI</option>
+                        <option value="mobile-development">Mobile Development</option>
+                        <option value="cloud-devops">Cloud & DevOps</option>
+                        <option value="design">UI/UX Design</option>
+                        <option value="business">Business & Management</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                    </select>
+                    <select id="levelFilter">
+                        <option value="">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                    <select id="priceFilter">
+                        <option value="">All Prices</option>
+                        <option value="free">Free</option>
+                        <option value="paid">Paid</option>
+                        <option value="under50">Under $50</option>
+                        <option value="50to100">$50 - $100</option>
+                        <option value="over100">Over $100</option>
+                    </select>
+                    <select id="sortFilter">
+                        <option value="popular">Most Popular</option>
+                        <option value="newest">Newest</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+                <div class="active-filters" id="activeFilters"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Grid -->
+    <section class="courses-grid-section">
+        <div class="container">
+            <div class="course-stats" id="courseStats">
+                <span>Showing <strong id="showingCount">0</strong> of <strong id="totalCount">0</strong> courses</span>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid" title="Grid View">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" data-view="list" title="List View">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Courses loaded dynamically -->
+            </div>
+            
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No courses found</h3>
+                <p>Try adjusting your filters or search terms</p>
+                <button class="btn btn-secondary" onclick="clearAllFilters()">
+                    <i class="fas fa-times"></i> Clear All Filters
+                </button>
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <button class="btn btn-ghost" id="prevPage" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="btn btn-ghost" id="nextPage">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart (<span id="cartItemCount">0</span>)</h2>
+            <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="cart-empty">Your cart is empty</p>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-summary">
+                <div class="cart-summary-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="cart-summary-row discount" id="cartDiscountRow" style="display: none;">
+                    <span>Discount (10%)</span>
+                    <span id="cartDiscount">-$0.00</span>
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <strong id="cartTotal">$0.00</strong>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-ghost" onclick="clearCart()">
+                    <i class="fas fa-trash"></i> Clear
+                </button>
+                <button class="btn btn-gradient" id="checkoutBtn">
+                    <i class="fas fa-lock"></i> Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Detail Modal -->
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal-content glass-panel">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div class="modal-body" id="modalBody">
+                <!-- Course details loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">
+                        <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <span>Learn<span class="gradient-text">Hub</span></span>
+                    </a>
+                    <p>The modern e-learning platform empowering professionals worldwide.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Courses</h4>
+                    <a href="#" onclick="filterByCategory('web-development')">Web Development</a>
+                    <a href="#" onclick="filterByCategory('data-science')">Data Science</a>
+                    <a href="#" onclick="filterByCategory('mobile-development')">Mobile Development</a>
+                    <a href="#" onclick="filterByCategory('cloud-devops')">Cloud Computing</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <a href="login.html">Sign In</a>
+                    <a href="register.html">Create Account</a>
+                    <a href="#" onclick="scrollToTop()">Back to Top</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LearnHub Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="courses.js"></script>
+</body>
+</html>

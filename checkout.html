@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="LearnHub - Secure Checkout">
+    <meta name="theme-color" content="#0f172a">
+    <title>Checkout | LearnHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>Learn<span class="gradient-text">Hub</span></span>
+            </a>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <a href="courses.html" class="btn btn-ghost">Back to Courses</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-header">
+                <h1>Secure <span class="gradient-text">Checkout</span></h1>
+                <p>Complete your purchase to start learning</p>
+            </div>
+            <div class="checkout-grid">
+                <div class="checkout-sidebar">
+                    <div class="order-summary glass-panel">
+                        <h3><i class="fas fa-shopping-cart"></i> Order Summary</h3>
+                        <div class="order-items" id="orderItems"></div>
+                        <div class="order-totals">
+                            <div class="total-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+                            <div class="total-row"><span>Discount</span><span class="discount" id="discount">-$0.00</span></div>
+                            <div class="total-row total-final"><span>Total</span><span id="finalTotal">$0.00</span></div>
+                        </div>
+                    </div>
+                    <div class="secure-badge glass-panel"><i class="fas fa-lock"></i><span>SSL Encrypted • Secure Payment</span></div>
+                </div>
+                <div class="checkout-main">
+                    <div class="checkout-card glass-panel">
+                        <div class="checkout-steps">
+                            <div class="step active" data-step="1"><div class="step-number">1</div><span>Payment Method</span></div>
+                            <div class="step-line"></div>
+                            <div class="step" data-step="2"><div class="step-number">2</div><span>Payment Details</span></div>
+                            <div class="step-line"></div>
+                            <div class="step" data-step="3"><div class="step-number">3</div><span>Confirmation</span></div>
+                        </div>
+                        <div class="checkout-step-content" id="step1Content">
+                            <h3>Select Payment Method</h3>
+                            <div class="payment-methods">
+                                <div class="payment-method-card" data-method="telebirr"><input type="radio" name="paymentMethod" id="telebirr" value="telebirr"><label for="telebirr"><div class="payment-method-icon"><i class="fas fa-mobile-alt"></i></div><div class="payment-method-info"><strong>Telebirr</strong><span>Pay with Telebirr mobile money</span></div><div class="payment-method-check"><i class="fas fa-check-circle"></i></div></label></div>
+                                <div class="payment-method-card" data-method="cbe"><input type="radio" name="paymentMethod" id="cbe" value="cbe"><label for="cbe"><div class="payment-method-icon"><i class="fas fa-university"></i></div><div class="payment-method-info"><strong>CBE Bank</strong><span>Bank transfer or CBE Birr</span></div><div class="payment-method-check"><i class="fas fa-check-circle"></i></div></label></div>
+                                <div class="payment-method-card" data-method="card"><input type="radio" name="paymentMethod" id="card" value="card"><label for="card"><div class="payment-method-icon"><i class="fas fa-credit-card"></i></div><div class="payment-method-info"><strong>Credit/Debit Card</strong><span>Visa, Mastercard, Amex</span></div><div class="payment-method-check"><i class="fas fa-check-circle"></i></div></label></div>
+                            </div>
+                            <button class="btn btn-primary btn-large" onclick="goToStep(2)" id="continueToPayment" disabled>Continue to Payment <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                        <div class="checkout-step-content" id="step2Content" style="display:none;">
+                            <button class="btn btn-ghost back-btn" onclick="goToStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+                            <div class="payment-form" id="telebirrForm" style="display:none;">
+                                <div class="payment-form-header"><i class="fas fa-mobile-alt"></i><h3>Telebirr Payment</h3></div>
+                                <p class="payment-instruction">Enter your Telebirr registered phone number.</p>
+                                <form id="telebirrPaymentForm">
+                                    <div class="form-group"><label>Phone Number</label><div class="phone-input-group"><span class="country-code">+251</span><input type="tel" id="telebirrPhone" placeholder="9XX XXX XXXX" required pattern="[0-9]{9}"></div></div>
+                                    <div class="form-group"><label>Full Name</label><input type="text" id="telebirrName" placeholder="Enter your full name" required></div>
+                                    <div class="form-group"><label>Telebirr PIN</label><input type="password" id="telebirrPin" placeholder="Enter PIN" maxlength="6" required></div>
+                                    <div class="payment-amount-display"><span>Amount:</span><strong id="telebirrAmount">$0.00</strong></div>
+                                    <button type="submit" class="btn btn-gradient btn-large"><i class="fas fa-check-circle"></i> Confirm Payment</button>
+                                </form>
+                            </div>
+                            <div class="payment-form" id="cbeForm" style="display:none;">
+                                <div class="payment-form-header"><i class="fas fa-university"></i><h3>CBE Bank Payment</h3></div>
+                                <div class="cbe-options"><div class="cbe-option active" data-cbe-method="transfer"><i class="fas fa-exchange-alt"></i><span>Bank Transfer</span></div><div class="cbe-option" data-cbe-method="cbebirr"><i class="fas fa-mobile-alt"></i><span>CBE Birr</span></div></div>
+                                <div class="cbe-method-content" id="transferContent">
+                                    <div class="bank-details"><h4>Bank Transfer Details</h4><div class="bank-info-item"><span>Bank:</span><strong>Commercial Bank of Ethiopia</strong></div><div class="bank-info-item"><span>Account Name:</span><strong>LearnHub Education PLC</strong></div><div class="bank-info-item"><span>Account Number:</span><strong>1000234567890</strong></div><div class="bank-info-item"><span>SWIFT Code:</span><strong>CBETETAA</strong></div></div>
+                                    <form id="cbeTransferForm">
+                                        <div class="form-group"><label>Your Full Name</label><input type="text" id="cbeTransferName" required></div>
+                                        <div class="form-group"><label>Your Account Number</label><input type="text" id="cbeTransferAccount" required></div>
+                                        <div class="form-group"><label>Transaction Reference</label><input type="text" id="cbeTransferRef" required></div>
+                                        <div class="payment-amount-display"><span>Amount:</span><strong id="cbeTransferAmount">$0.00</strong></div>
+                                        <button type="submit" class="btn btn-gradient btn-large"><i class="fas fa-paper-plane"></i> Submit Payment</button>
+                                    </form>
+                                </div>
+                                <div class="cbe-method-content" id="cbebirrContent" style="display:none;">
+                                    <p class="payment-instruction">Pay using CBE Birr mobile banking.</p>
+                                    <form id="cbeBirrForm">
+                                        <div class="form-group"><label>Phone Number</label><div class="phone-input-group"><span class="country-code">+251</span><input type="tel" id="cbeBirrPhone" required></div></div>
+                                        <div class="form-group"><label>Full Name</label><input type="text" id="cbeBirrName" required></div>
+                                        <div class="payment-amount-display"><span>Amount:</span><strong id="cbeBirrAmount">$0.00</strong></div>
+                                        <button type="submit" class="btn btn-gradient btn-large"><i class="fas fa-check-circle"></i> Pay with CBE Birr</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="payment-form" id="cardForm" style="display:none;">
+                                <div class="payment-form-header"><i class="fas fa-credit-card"></i><h3>Card Payment</h3></div>
+                                <div class="card-icons"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-amex"></i></div>
+                                <form id="cardPaymentForm">
+                                    <div class="form-group"><label>Card Number</label><input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required></div>
+                                    <div class="form-group"><label>Cardholder Name</label><input type="text" id="cardName" required></div>
+                                    <div class="form-row"><div class="form-group"><label>Expiry</label><input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required></div><div class="form-group"><label>CVV</label><input type="password" id="cardCvv" maxlength="4" required></div></div>
+                                    <div class="payment-amount-display"><span>Amount:</span><strong id="cardAmount">$0.00</strong></div>
+                                    <button type="submit" class="btn btn-gradient btn-large"><i class="fas fa-lock"></i> Pay Securely</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="checkout-step-content" id="step3Content" style="display:none;">
+                            <div class="confirmation-content">
+                                <div class="confirmation-icon"><i class="fas fa-clock"></i></div>
+                                <h2>Payment Submitted!</h2>
+                                <p>Your payment is pending admin approval.</p>
+                                <div class="confirmation-details"><div class="confirm-item"><span>Status:</span><span class="status status-pending">Pending Approval</span></div><div class="confirm-item"><span>Transaction ID:</span><strong id="transactionId">---</strong></div><div class="confirm-item"><span>Amount:</span><strong id="confirmAmount">$0.00</strong></div></div>
+                                <div class="confirmation-note"><i class="fas fa-info-circle"></i><p>Once admin approves, you'll get email notification and course access.</p></div>
+                                <div class="confirmation-actions"><a href="student-dashboard.html" class="btn btn-primary btn-large"><i class="fas fa-th-large"></i> Dashboard</a><a href="courses.html" class="btn btn-ghost btn-large"><i class="fas fa-book"></i> More Courses</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMessage"></span></div>
+    <script src="payment.js"></script>
+</body>
+</html>

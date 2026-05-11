@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="LearnHub - Login to your account">
+    <meta name="theme-color" content="#0f172a">
+    <title>Login | LearnHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>Learn<span class="gradient-text">Hub</span></span>
+            </a>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="index.html" class="btn btn-ghost">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card glass-panel">
+                    <div class="auth-header">
+                        <div class="auth-logo">
+                            <div class="logo-icon large"><i class="fas fa-graduation-cap"></i></div>
+                        </div>
+                        <h1>Welcome Back</h1>
+                        <p>Sign in to continue your learning journey</p>
+                    </div>
+
+                    <!-- Role Selection Tabs -->
+                    <div class="role-tabs">
+                        <button class="role-tab active" data-role="student">
+                            <i class="fas fa-user-graduate"></i> Student
+                        </button>
+                        <button class="role-tab" data-role="instructor">
+                            <i class="fas fa-chalkboard-teacher"></i> Instructor
+                        </button>
+                        <button class="role-tab" data-role="admin">
+                            <i class="fas fa-shield-alt"></i> Admin
+                        </button>
+                    </div>
+
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" placeholder="you@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-gradient btn-large">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="register.html">Create Account</a></p>
+                    </div>
+
+                    <!-- Demo Credentials -->
+                    <div class="demo-credentials">
+                        <h4><i class="fas fa-key"></i> Demo Credentials</h4>
+                        <div class="demo-roles">
+                            <div class="demo-role" onclick="fillCredentials('student@learnia.com', 'student123')">
+                                <i class="fas fa-user-graduate"></i>
+                                <strong>Student</strong>
+                                <span>student@learnia.com</span>
+                            </div>
+                            <div class="demo-role" onclick="fillCredentials('lelistu@learnhub.com', 'lelistu123')">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <strong>Instructor</strong>
+                                <span>lelistu@learnhub.com</span>
+                            </div>
+                            <div class="demo-role" onclick="fillCredentials('admin@learnia.com', 'admin123')">
+                                <i class="fas fa-shield-alt"></i>
+                                <strong>Admin</strong>
+                                <span>admin@learnia.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
