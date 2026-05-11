@@ -97,11 +97,12 @@ function updateAuthUI() {
 }
 
 function getDashboardUrl(role) {
+    console.log("[v0] Getting dashboard URL for role:", role);
     switch(role) {
-        case 'admin': return 'admin-dashboard.html';
-        case 'instructor': return 'instructor-dashboard.html';
-        case 'student': return 'student-dashboard.html';
-        default: return 'login.html';
+        case 'admin': return './admin-dashboard.html';
+        case 'instructor': return './instructor-dashboard.html';
+        case 'student': return './student-dashboard.html';
+        default: return './login.html';
     }
 }
 

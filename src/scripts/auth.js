@@ -172,18 +172,19 @@ function setCurrentUser(user, rememberMe = false) {
 }
 
 function redirectToDashboard(role) {
+    console.log("[v0] Redirecting to dashboard for role:", role);
     switch(role) {
         case 'admin':
-            window.location.href = 'admin-dashboard.html';
+            window.location.href = './admin-dashboard.html';
             break;
         case 'instructor':
-            window.location.href = 'instructor-dashboard.html';
+            window.location.href = './instructor-dashboard.html';
             break;
         case 'student':
-            window.location.href = 'student-dashboard.html';
+            window.location.href = './student-dashboard.html';
             break;
         default:
-            window.location.href = 'index.html';
+            window.location.href = './index.html';
     }
 }
 

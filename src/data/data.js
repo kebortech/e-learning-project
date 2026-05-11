@@ -611,5 +611,43 @@ function logout() {
     localStorage.removeItem('currentUserId');
 }
 
+// ==========================================
+// HELPER FUNCTION FOR DASHBOARDS
+// Used by all dashboard scripts to get current user
+// ==========================================
+function getCurrentUser() {
+    try {
+        // First try the new format (learniaCurrentUser - used by auth system)
+        let user = JSON.parse(localStorage.getItem('learniaCurrentUser'));
+        if (user) {
+            console.log("[v0] Got current user from localStorage:", user.email, user.role);
+            return user;
+        }
+        
+        // Try session storage (for non-persistent sessions)
+        user = JSON.parse(sessionStorage.getItem('learniaCurrentUser'));
+        if (user) {
+            console.log("[v0] Got current user from sessionStorage:", user.email, user.role);
+            return user;
+        }
+        
+        // Fallback to old format
+        const userId = localStorage.getItem('currentUserId');
+        if (userId) {
+            user = getUserById(parseInt(userId));
+            if (user) {
+                console.log("[v0] Got current user from user ID:", user.email, user.role);
+                return user;
+            }
+        }
+        
+        console.log("[v0] No current user found");
+        return null;
+    } catch (error) {
+        console.error("[v0] Error getting current user:", error);
+        return null;
+    }
+}
+
 // Initialize database on load
 initializeDatabase();
